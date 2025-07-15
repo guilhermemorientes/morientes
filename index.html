@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morientes — Excelência Digital</title>
+    <meta name="description" content="Criamos experiências digitais extraordinárias para marcas visionárias. Sites premium com entrega em 24h.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!-- Navigation -->
+<nav class="nav" id="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <span class="brand-text">morientes<span class="dot">.</span></span>
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <a href="#hero" class="nav-link active" data-section="hero">Início</a>
+      <a href="#services" class="nav-link" data-section="services">Serviços</a>
+      <a href="#process" class="nav-link" data-section="process">Processo</a>
+      <a href="#portfolio" class="nav-link" data-section="portfolio">Portfolio</a>
+      <a href="#contact" class="nav-link" data-section="contact">Contato</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a href="tel:+5511972822020" class="nav-cta">
+        <span>Ligar Agora</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>✨ Entrega Premium em 24h</span>
+                </div>
+                <h1 class="hero-title">
+                    Criamos experiências
+                    <span class="hero-highlight">digitais extraordinárias</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Para marcas que não se contentam com o comum. Sites premium que combinam 
+                    design excepcional, performance superior e resultados mensuráveis.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Projetos Entregues</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24h</span>
+                        <span class="stat-label">Tempo de Entrega</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Satisfação</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="scrollToForm()">
+                        <span>Iniciar Projeto</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="btn-secondary" onclick="openWhatsApp()">
+                        <span>WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <img src="/img/hero.webp" alt="Design Premium" class="hero-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+  <div class="services-container">
+    <div class="section-header">
+      <span class="section-badge">Nossos Serviços</span>
+      <h2 class="section-title">Soluções completas para sua presença digital</h2>
+      <p class="section-subtitle">
+        Cada projeto é único. Combinamos estratégia, design e tecnologia 
+        para criar experiências que superam expectativas.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card featured">
+        <div class="service-image">
+          <img src="img/desenvolvimento-web.webp" 
+               alt="Design responsivo sendo criado por programador com múltiplas telas" 
+               title="Desenvolvimento Web Premium"
+               width="400" height="300" loading="lazy" />
+        </div>
+        <div class="service-content">
+          <h3>Desenvolvimento Web Premium</h3>
+          <p>Sites institucionais e landing pages com design excepcional, performance otimizada e experiência de usuário superior.</p>
+          <ul class="service-features">
+            <li>Design responsivo e moderno</li>
+            <li>Performance otimizada</li>
+            <li>SEO técnico avançado</li>
+            <li>Integração com analytics</li>
+          </ul>
+          <div class="service-price">
+            <span class="price-from">A partir de</span>
+            <span class="price-value">R$ 2.500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-image">
+          <img src="img/e-comerce.webp" 
+               alt="Interface de loja online com perfumes e botões de compra" 
+               title="E-commerce Profissional"
+               width="400" height="300" loading="lazy" />
+        </div>
+        <div class="service-content">
+          <h3>E-commerce Profissional</h3>
+          <p>Lojas virtuais completas com gestão de produtos, pagamentos integrados e dashboard administrativo.</p>
+          <ul class="service-features">
+            <li>Gestão completa de produtos</li>
+            <li>Múltiplas formas de pagamento</li>
+            <li>Dashboard administrativo</li>
+            <li>Relatórios de vendas</li>
+          </ul>
+          <div class="service-price">
+            <span class="price-from">A partir de</span>
+            <span class="price-value">R$ 4.500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-image">
+          <img src="img/branding.webp" 
+               alt="Processo de criação de logotipo com lápis de cor e esboços" 
+               title="Branding & Identidade"
+               width="400" height="300" loading="lazy" />
+        </div>
+        <div class="service-content">
+          <h3>Branding & Identidade</h3>
+          <p>Criação de identidade visual completa, desde logo até manual da marca e aplicações.</p>
+          <ul class="service-features">
+            <li>Logo e identidade visual</li>
+            <li>Manual da marca</li>
+            <li>Papelaria corporativa</li>
+            <li>Aplicações digitais</li>
+          </ul>
+          <div class="service-price">
+            <span class="price-from">A partir de</span>
+            <span class="price-value">R$ 1.800</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-image">
+          <img src="img/marketing.webp" 
+               alt="Ícones 3D de redes sociais como Instagram, Facebook, TikTok e Google Ads flutuando" 
+               title="Marketing Digital"
+               width="400" height="300" loading="lazy" />
+        </div>
+        <div class="service-content">
+          <h3>Marketing Digital</h3>
+          <p>Estratégias completas de marketing digital, tráfego pago e gestão de redes sociais.</p>
+          <ul class="service-features">
+            <li>Google Ads e Facebook Ads</li>
+            <li>SEO e marketing de conteúdo</li>
+            <li>Gestão de redes sociais</li>
+            <li>Relatórios de performance</li>
+          </ul>
+          <div class="service-price">
+            <span class="price-from">A partir de</span>
+            <span class="price-value">R$ 1.200/mês</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-image">
+          <img src="img/sistemas.webp" 
+               alt="Dashboard com gráficos e painéis conectados por fluxos e API" 
+               title="Sistemas Personalizados"
+               width="400" height="300" loading="lazy" />
+        </div>
+        <div class="service-content">
+          <h3>Sistemas Personalizados</h3>
+          <p>Desenvolvimento de sistemas web sob medida, dashboards administrativos e plataformas específicas para seu negócio.</p>
+          <ul class="service-features">
+            <li>Desenvolvimento sob medida</li>
+            <li>Dashboard administrativo</li>
+            <li>Integração com APIs</li>
+            <li>Banco de dados otimizado</li>
+          </ul>
+          <div class="service-price">
+            <span class="price-from">A partir de</span>
+            <span class="price-value">R$ 6.500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-image">
+          <img src="img/consultoria.webp" 
+               alt="Mesa de trabalho com relatórios de marketing digital e indicadores de performance" 
+               title="Consultoria Digital"
+               width="400" height="300" loading="lazy" />
+        </div>
+        <div class="service-content">
+          <h3>Consultoria Digital</h3>
+          <p>Análise completa da sua presença digital, auditoria de performance e estratégias para maximizar resultados online.</p>
+          <ul class="service-features">
+            <li>Auditoria completa</li>
+            <li>Estratégia personalizada</li>
+            <li>Análise de concorrência</li>
+            <li>Plano de ação detalhado</li>
+          </ul>
+          <div class="service-price">
+            <span class="price-from">A partir de</span>
+            <span class="price-value">R$ 800</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="process-container">
+            <div class="section-header">
+                <span class="section-badge">Nosso Processo</span>
+                <h2 class="section-title">Da ideia ao resultado em 4 etapas</h2>
+            </div>
+            
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Descoberta & Estratégia</h3>
+                        <p>Entendemos profundamente seu negócio, objetivos e público-alvo para criar a estratégia perfeita.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Design & Prototipagem</h3>
+                        <p>Criamos wireframes e protótipos interativos para validar a experiência antes do desenvolvimento.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Desenvolvimento & Testes</h3>
+                        <p>Desenvolvemos com as melhores práticas, testamos em múltiplos dispositivos e otimizamos a performance.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Lançamento & Suporte</h3>
+                        <p>Colocamos seu projeto no ar e oferecemos suporte contínuo para garantir o sucesso.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Otimização & Analytics</h3>
+                        <p>Implementamos ferramentas de análise, otimizamos performance e configuramos métricas para acompanhar resultados.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>Crescimento Contínuo</h3>
+                        <p>Monitoramos performance, sugerimos melhorias e evoluímos seu projeto para maximizar resultados a longo prazo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Portfolio Section -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-container">
+    <div class="section-header">
+      <span class="section-badge">Portfólio</span>
+      <h2 class="section-title">Projetos que transformaram negócios</h2>
+    </div>
+
+    <div class="portfolio-grid">
+
+      <!-- Nine Office Boutique -->
+      <div class="portfolio-item">
+        <div class="portfolio-image">
+          <img src="img/nine-office-boutique.webp"
+               alt="Fachada moderna do Nine Office Boutique, lajes corporativas na Av. 9 de Julho"
+               title="Nine Office Boutique – Escritórios premium em Jundiaí" width="600" height="400" loading="lazy">
+          <div class="portfolio-overlay">
+            <div class="portfolio-info">
+              <h4>Nine Office Boutique</h4>
+              <p>Lajes corporativas moduladas com até 516 m², escritório premium</p>
+              <span class="portfolio-tag">Corporativo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alphaville Jundiaí -->
+      <div class="portfolio-item">
+        <div class="portfolio-image">
+          <img src="img/alphaville-jundiai.webp"
+               alt="Vista aérea de loteamento Alphaville Jundiaí com áreas verdes e praças"
+               title="Alphaville Jundiaí – loteamento residencial de alto padrão" width="600" height="400" loading="lazy">
+          <div class="portfolio-overlay">
+            <div class="portfolio-info">
+              <h4>Alphaville Jundiaí</h4>
+              <p>Loteamento fechado com lotes desde 450 m² e praças temáticas</p>
+              <span class="portfolio-tag">Residencial</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue Lounge Jundiaí -->
+      <div class="portfolio-item">
+        <div class="portfolio-image">
+          <img src="img/blue-lounge.webp"
+               alt="Interior noturno do Blue Lounge Jundiaí, tabacaria e bar lounge"
+               title="Blue Lounge Jundiaí – conceito de tabacaria e entretenimento" width="600" height="400" loading="lazy">
+          <div class="portfolio-overlay">
+            <div class="portfolio-info">
+              <h4>Blue Lounge Jundiaí</h4>
+              <p>Espaço de entretenimento e tabacaria aberto até madrugada</p>
+              <span class="portfolio-tag">Entretenimento</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- Contact Form Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <span class="section-badge">Vamos Conversar</span>
+                    <h2>Pronto para transformar sua presença digital?</h2>
+                    <p>
+                        Conte-nos sobre seu projeto e receba uma proposta personalizada 
+                        em até 2 horas. Sem compromisso, apenas soluções excepcionais.
+                    </p>
+                    
+                    <div class="contact-features">
+                        <div class="contact-feature">
+                            <div class="feature-icon">⚡</div>
+                            <div>
+                                <h4>Resposta Rápida</h4>
+                                <p>Retorno em até 2 horas</p>
+                            </div>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="feature-icon">🎯</div>
+                            <div>
+                                <h4>Proposta Personalizada</h4>
+                                <p>Solução sob medida para seu negócio</p>
+                            </div>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="feature-icon">🔒</div>
+                            <div>
+                                <h4>Dados Protegidos</h4>
+                                <p>Suas informações estão seguras</p>
+                            </div>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="feature-icon">💼</div>
+                            <div>
+                                <h4>Consultoria Gratuita</h4>
+                                <p>Análise inicial sem custo</p>
+                            </div>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="feature-icon">🏆</div>
+                            <div>
+                                <h4>Garantia de Qualidade</h4>
+                                <p>Satisfação 100% garantida</p>
+                            </div>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="feature-icon">📞</div>
+                            <div>
+                                <h4>Suporte Dedicado</h4>
+                                <p>Atendimento personalizado</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="leadForm" class="form">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail Profissional</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefone">WhatsApp</label>
+                            <input type="tel" id="telefone" name="telefone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresa">Nome da Empresa</label>
+                            <input type="text" id="empresa" name="empresa" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="segmento">Segmento de Atuação</label>
+                            <select id="segmento" name="segmento" required>
+                                <option value="">Selecione uma opção</option>
+                                <option value="saude">Saúde e Bem-estar</option>
+                                <option value="comercio">Comércio e Varejo</option>
+                                <option value="servicos">Serviços Profissionais</option>
+                                <option value="industria">Indústria</option>
+                                <option value="educacao">Educação</option>
+                                <option value="tecnologia">Tecnologia</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="projeto">Conte-nos sobre seu projeto</label>
+                            <textarea id="projeto" name="projeto" rows="4" placeholder="Descreva brevemente o que você precisa..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">
+                            <span>Enviar Solicitação</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Clients Carousel Section -->
+<section class="clients-carousel">
+  <div class="clients-carousel-container">
+    <div class="section-header">
+      <span class="section-badge">Nossos Clientes</span>
+      <h2 class="section-title">Marcas que confiam na nossa excelência</h2>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="clientsCarousel">
+
+        <div class="client-logo">
+          <img src="img/clients/lancamentos-jundiai.webp" alt="Logo da Lançamentos Jundiaí, plataforma de imóveis na planta em Jundiaí" width="160" height="80" loading="lazy">
+          <span>Lançamentos Jundiaí</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/alphaville-jundiai.webp" alt="Logo do Alphaville Jundiaí, empreendimento de alto padrão residencial" width="160" height="80" loading="lazy">
+          <span>Alphaville Jundiaí</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/ps-do-prado.webp" alt="Logo da PS do Prado, auto elétrica e mecânica especializada" width="160" height="80" loading="lazy">
+          <span>PS do Prado</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/nine-office-boutique.webp" alt="Logo do Nine Office Boutique, escritórios comerciais em Jundiaí" width="160" height="80" loading="lazy">
+          <span>Nine Office Boutique</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/blue-lounge.webp" alt="Logo do Blue Lounge Jundiaí, bar e tabacaria de alto padrão" width="160" height="80" loading="lazy">
+          <span>Blue Lounge</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/munck-jundiai.webp" alt="Logo da Munck Jundiaí, empresa de transporte e içamento de cargas" width="160" height="80" loading="lazy">
+          <span>Munck Jundiaí</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/las-villas-jundiai.webp" alt="Logo do Las Villas Serra do Japi, condomínio fechado com lazer e natureza" width="160" height="80" loading="lazy">
+          <span>Las Villas Jundiaí</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/container-jundiai.webp" alt="Logo da Container Jundiaí, soluções em módulos habitáveis e comerciais" width="160" height="80" loading="lazy">
+          <span>Container Jundiaí</span>
+        </div>
+
+        <div class="client-logo">
+          <img src="img/clients/lojinha-do-mineiro.webp" alt="Logo da Lojinha do Mineiro, loja online de produtos criativos com identidade regional" width="160" height="80" loading="lazy">
+          <span>Lojinha do Mineiro</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Footer Main Content -->
+    <div class="footer-main">
+      <div class="footer-brand-section">
+        <div class="footer-brand">
+          <span class="brand-text">
+            <span class="brand-name">morientes</span><span class="brand-dot">.</span>
+          </span>
+          <p class="brand-tagline">Excelência digital para marcas visionárias</p>
+        </div>
+        <p class="footer-description">
+          Transformamos ideias em experiências digitais extraordinárias. 
+          Cada projeto é único, cada resultado é excepcional.
+        </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Behance">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14h-8.027c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988h-6.466v-14.967h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zm-3.466-8.988h3.584c2.508 0 2.906-3-.312-3h-3.272v3zm3.391 3h-3.391v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links-section">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Serviços</h4>
+                        <ul class="footer-links">
+                            <li><a href="#services">Desenvolvimento Web</a></li>
+                            <li><a href="#services">E-commerce</a></li>
+                            <li><a href="#services">Branding & Identidade</a></li>
+                            <li><a href="#services">Marketing Digital</a></li>
+                            <li><a href="#services">Sistemas Personalizados</a></li>
+                            <li><a href="#services">Consultoria Digital</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Empresa</h4>
+                        <ul class="footer-links">
+                            <li><a href="#about">Sobre Nós</a></li>
+                            <li><a href="#portfolio">Portfolio</a></li>
+                            <li><a href="#process">Nosso Processo</a></li>
+                            <li><a href="#contact">Contato</a></li>
+                            <li><a href="#">Carreiras</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Contato</h4>
+                        <div class="footer-contact-info">
+                            <div class="contact-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                                <a href="mailto:contato@morientes.com.br">contato@morientes.com.br</a>
+                            </div>
+                            <div class="contact-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                                <a href="tel:+5511972822020">(11) 97282-2020</a>
+                            </div>
+                            <div class="contact-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>Av. 9 de Julho, 3405 – Conjunto 719<br>Anhangabaú – Jundiaí/SP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Newsletter</h4>
+                        <p class="newsletter-text">Receba insights exclusivos sobre design e tecnologia</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Seu melhor e-mail" required>
+                            <button type="submit">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22,2 15,22 11,13 2,9 22,2"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">&copy; 2024 Morientes. Todos os direitos reservados.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Política de Privacidade</a>
+                        <a href="#">Termos de Uso</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" fill="currentColor"/>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
