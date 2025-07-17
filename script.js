@@ -1,7 +1,6 @@
 // DOM Elements
 const leadForm = document.getElementById("leadForm")
-const faqItems = document.querySelectorAll(".faq-item")
-const submitBtn = document.querySelector(".submit-btn")
+const submitBtn = document.querySelector(".form-submit")
 
 // Smooth scrolling and animations
 document.addEventListener("DOMContentLoaded", () => {
@@ -112,55 +111,59 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Form handling
-  leadForm.addEventListener("submit", async (e) => {
-    e.preventDefault()
+  if (leadForm) {
+    leadForm.addEventListener("submit", async (e) => {
+      e.preventDefault()
 
-    // Get form data
-    const formData = new FormData(leadForm)
-    const data = Object.fromEntries(formData)
+      // Get form data
+      const formData = new FormData(leadForm)
+      const data = Object.fromEntries(formData)
 
-    // Validate required fields
-    const requiredFields = ["nome", "email", "telefone", "empresa", "segmento"]
-    const missingFields = requiredFields.filter((field) => !data[field] || data[field].trim() === "")
+      // Validate required fields
+      const requiredFields = ["nome", "email", "telefone", "empresa", "segmento"]
+      const missingFields = requiredFields.filter((field) => !data[field] || data[field].trim() === "")
 
-    if (missingFields.length > 0) {
-      showNotification("Por favor, preencha todos os campos obrigatórios.", "error")
-      return
-    }
+      if (missingFields.length > 0) {
+        showNotification("Por favor, preencha todos os campos obrigatórios.", "error")
+        return
+      }
 
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(data.email)) {
-      showNotification("Por favor, insira um e-mail válido.", "error")
-      return
-    }
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(data.email)) {
+        showNotification("Por favor, insira um e-mail válido.", "error")
+        return
+      }
 
-    // Show loading state
-    submitBtn.classList.add("loading")
-    submitBtn.disabled = true
-    const originalText = submitBtn.innerHTML
-    submitBtn.innerHTML = "<span>Enviando...</span>"
+      // Show loading state
+      if (submitBtn) {
+        submitBtn.classList.add("loading")
+        submitBtn.disabled = true
+        const originalText = submitBtn.innerHTML
+        submitBtn.innerHTML = "<span>Enviando...</span>"
 
-    try {
-      // Simulate API call
-      await simulateFormSubmission(data)
+        try {
+          // Simulate API call
+          await simulateFormSubmission(data)
 
-      // Success
-      showNotification("Solicitação enviada com sucesso! Entraremos em contato em até 2 horas.", "success")
-      leadForm.reset()
+          // Success
+          showNotification("Solicitação enviada com sucesso! Entraremos em contato em até 2 horas.", "success")
+          leadForm.reset()
 
-      // Track conversion
-      trackConversion("lead_form_submission", data)
-    } catch (error) {
-      console.error("Erro ao enviar formulário:", error)
-      showNotification("Erro ao enviar formulário. Tente novamente ou entre em contato pelo WhatsApp.", "error")
-    } finally {
-      // Reset button state
-      submitBtn.classList.remove("loading")
-      submitBtn.disabled = false
-      submitBtn.innerHTML = originalText
-    }
-  })
+          // Track conversion
+          trackConversion("lead_form_submission", data)
+        } catch (error) {
+          console.error("Erro ao enviar formulário:", error)
+          showNotification("Erro ao enviar formulário. Tente novamente ou entre em contato pelo WhatsApp.", "error")
+        } finally {
+          // Reset button state
+          submitBtn.classList.remove("loading")
+          submitBtn.disabled = false
+          submitBtn.innerHTML = originalText
+        }
+      }
+    })
+  }
 
   // Phone number formatting
   const phoneInput = document.getElementById("telefone")
@@ -183,31 +186,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
-// FAQ Accordion
-faqItems.forEach((item) => {
-  const question = item.querySelector(".faq-question")
-
-  question.addEventListener("click", () => {
-    const isActive = item.classList.contains("active")
-
-    // Close all items
-    faqItems.forEach((faqItem) => {
-      faqItem.classList.remove("active")
-    })
-
-    // Open clicked item if not active
-    if (!isActive) {
-      item.classList.add("active")
-    }
-  })
-})
-
 // Utility functions
 function scrollToForm() {
-  document.getElementById("contact").scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  })
+  const contactSection = document.getElementById("contact")
+  if (contactSection) {
+    contactSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
 }
 
 function openWhatsApp() {
@@ -240,62 +227,62 @@ function showNotification(message, type = "info") {
   const notification = document.createElement("div")
   notification.className = `notification notification-${type}`
   notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-icon">
-                ${type === "success" ? "✅" : type === "error" ? "❌" : "ℹ️"}
-            </span>
-            <span class="notification-message">${message}</span>
-            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
-    `
+    <div class="notification-content">
+      <span class="notification-icon">
+        ${type === "success" ? "✅" : type === "error" ? "❌" : "ℹ️"}
+      </span>
+      <span class="notification-message">${message}</span>
+      <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+    </div>
+  `
 
   // Add styles
   notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 2rem;
-        z-index: 10000;
-        max-width: 400px;
-        background: ${type === "success" ? "#10B981" : type === "error" ? "#EF4444" : "#3B82F6"};
-        color: white;
-        padding: 1rem;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        animation: slideInRight 0.3s ease-out;
-        font-weight: 500;
-    `
+    position: fixed;
+    top: 100px;
+    right: 2rem;
+    z-index: 10000;
+    max-width: 400px;
+    background: ${type === "success" ? "#10B981" : type === "error" ? "#EF4444" : "#3B82F6"};
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: slideInRight 0.3s ease-out;
+    font-weight: 500;
+  `
 
   const style = document.createElement("style")
   style.textContent = `
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        .notification-content {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .notification-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.25rem;
-            cursor: pointer;
-            margin-left: auto;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-        .notification-close:hover {
-            opacity: 1;
-        }
-    `
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .notification-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .notification-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      margin-left: auto;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .notification-close:hover {
+      opacity: 1;
+    }
+  `
 
   document.head.appendChild(style)
   document.body.appendChild(notification)
@@ -311,7 +298,7 @@ function showNotification(message, type = "info") {
 function trackConversion(eventName, data) {
   // Google Analytics 4
   const gtag = window.gtag // Declare gtag variable
-  if (typeof gtag !== "undefined") {
+  if (gtag) {
     gtag("event", eventName, {
       custom_parameter: data.segmento,
       value: 2500,
@@ -321,7 +308,7 @@ function trackConversion(eventName, data) {
 
   // Facebook Pixel
   const fbq = window.fbq // Declare fbq variable
-  if (typeof fbq !== "undefined") {
+  if (fbq) {
     fbq("track", "Lead", {
       content_category: data.segmento,
       value: 2500,
@@ -333,16 +320,6 @@ function trackConversion(eventName, data) {
   console.log("🎯 Conversion tracked:", eventName, data)
 }
 
-// Header scroll effect
-window.addEventListener("scroll", () => {
-  const header = document.querySelector(".header")
-  if (window.scrollY > 100) {
-    header.style.background = "rgba(0, 0, 0, 0.95)"
-  } else {
-    header.style.background = "#000"
-  }
-})
-
 // Performance monitoring
 window.addEventListener("load", () => {
   const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart
@@ -350,7 +327,7 @@ window.addEventListener("load", () => {
 
   // Track performance
   const gtag = window.gtag // Declare gtag variable
-  if (typeof gtag !== "undefined") {
+  if (gtag) {
     gtag("event", "page_load_time", {
       value: Math.round(loadTime / 1000),
     })
