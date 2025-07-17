@@ -94,7 +94,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.05em;
   color: var(--primary-black);
-  font-family: 'Satoshi', 'Helvetica Neue', sans-serif;
+  font-family: "Satoshi", "Helvetica Neue", sans-serif;
 }
 
 .brand-text .dot {
@@ -372,9 +372,6 @@ body {
 
 .hero-visual {
   position: relative;
-}
-
-.hero-visual {
   background: transparent !important;
 }
 
@@ -386,7 +383,7 @@ body {
   background: transparent;
   border-radius: 0;
   overflow: visible;
-  box-shadow: none; /* ou mantenha se quiser só sombra dos devices */
+  box-shadow: none;
 }
 
 .hero-img {
@@ -394,18 +391,6 @@ body {
   height: auto;
   display: block;
 }
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
-}
-
-
-
 
 /* Services Section */
 .services {
@@ -952,7 +937,6 @@ body {
   }
 }
 
-/* Pause animation on hover */
 .carousel-track:hover {
   animation-play-state: paused;
 }
@@ -1037,6 +1021,8 @@ body {
   justify-content: center;
   color: var(--gray-400);
   transition: all var(--transition-normal);
+  text-decoration: none;
+  font-size: 1.2rem;
 }
 
 .social-link:hover {
@@ -1126,10 +1112,11 @@ body {
   font-size: 0.875rem;
 }
 
-.contact-item svg {
+.contact-item i {
   color: var(--champagne);
   margin-top: 2px;
   flex-shrink: 0;
+  width: 16px;
 }
 
 .contact-item a {
@@ -1186,6 +1173,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1rem;
 }
 
 .newsletter-form button:hover {
@@ -1276,6 +1264,7 @@ body {
   z-index: 1000;
   transition: all var(--transition-normal);
   color: var(--primary-white);
+  font-size: 1.5rem;
 }
 
 .whatsapp-float:hover {
@@ -1298,12 +1287,6 @@ body {
   .contact-content {
     grid-template-columns: 1fr;
     gap: 3rem;
-  }
-
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    text-align: center;
   }
 }
 
@@ -1363,12 +1346,6 @@ body {
 
   .contact-form {
     padding: 2rem;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
   }
 }
 
