@@ -1,91 +1,121 @@
 // DOM Elements
 const leadForm = document.getElementById("leadForm")
-const submitBtn = document.querySelector(".form-submit")
+const submitBtn = document.querySelector(".cosmic-submit")
+const phoneInput = document.getElementById("telefone")
+const starsContainer = document.getElementById("starsContainer")
 
-// Smooth scrolling and animations
+// Initialize Universe
 document.addEventListener("DOMContentLoaded", () => {
-  const nav = document.querySelector(".nav")
-  const navToggle = document.getElementById("navToggle")
-  const navMenu = document.getElementById("navMenu")
-  const navLinks = document.querySelectorAll(".nav-link")
+  createStarField()
+  initializeAnimations()
+  setupFormHandling()
+  setupPhoneFormatting()
+})
 
-  // Mobile menu toggle
-  navToggle.addEventListener("click", () => {
-    navToggle.classList.toggle("active")
-    navMenu.classList.toggle("active")
-  })
+// Create Enhanced Star Field
+function createStarField() {
+  const numberOfStars = 300 // Aumentado para criar mais estrelas
 
-  // Close mobile menu when clicking on links
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navToggle.classList.remove("active")
-      navMenu.classList.remove("active")
-    })
-  })
+  for (let i = 0; i < numberOfStars; i++) {
+    const star = document.createElement("div")
+    star.className = "star"
 
-  // Navigation scroll effect and active states
-  const sections = document.querySelectorAll("section[id]")
-
-  function updateActiveNav() {
-    const scrollY = window.pageYOffset
-
-    sections.forEach((section) => {
-      const sectionHeight = section.offsetHeight
-      const sectionTop = section.offsetTop - 100
-      const sectionId = section.getAttribute("id")
-      const navLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`)
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navLinks.forEach((link) => link.classList.remove("active"))
-        if (navLink) navLink.classList.add("active")
-      }
-    })
-
-    // Navigation background effect
-    if (scrollY > 50) {
-      nav.classList.add("scrolled")
+    // Distribuição mais realista de tamanhos
+    const size = Math.random()
+    if (size < 0.7) {
+      star.classList.add("small")
+    } else if (size < 0.9) {
+      star.classList.add("medium")
     } else {
-      nav.classList.remove("scrolled")
+      star.classList.add("large")
     }
+
+    // Mais estrelas coloridas para efeito espacial
+    if (Math.random() < 0.4) {
+      star.classList.add("colored")
+    }
+
+    // Posicionamento aleatório mais natural
+    star.style.left = Math.random() * 100 + "%"
+    star.style.top = Math.random() * 100 + "%"
+
+    // Variação nas animações
+    star.style.animationDelay = Math.random() * 4 + "s"
+    star.style.animationDuration = 2 + Math.random() * 4 + "s"
+
+    starsContainer.appendChild(star)
   }
 
-  window.addEventListener("scroll", updateActiveNav)
-  updateActiveNav() // Initial call
+  // Adiciona algumas estrelas cadentes
+  createShootingStars()
+}
 
-  // Clients carousel infinite scroll
-  const carousel = document.getElementById("clientsCarousel")
-  if (carousel) {
-    // Clone items for infinite scroll
-    const items = carousel.innerHTML
-    carousel.innerHTML = items + items
-  }
+// Nova função para estrelas cadentes
+function createShootingStars() {
+  setInterval(() => {
+    if (Math.random() < 0.3) {
+      // 30% de chance a cada intervalo
+      const shootingStar = document.createElement("div")
+      shootingStar.className = "shooting-star"
+      shootingStar.style.left = Math.random() * 100 + "%"
+      shootingStar.style.top = Math.random() * 50 + "%"
 
-  // Newsletter form
-  const newsletterForm = document.querySelector(".newsletter-form")
-  if (newsletterForm) {
-    newsletterForm.addEventListener("submit", (e) => {
-      e.preventDefault()
-      const email = newsletterForm.querySelector("input").value
+      starsContainer.appendChild(shootingStar)
 
-      if (email) {
-        showNotification("Obrigado! Você foi inscrito na nossa newsletter.", "success")
-        newsletterForm.reset()
+      // Remove após animação
+      setTimeout(() => {
+        if (shootingStar.parentElement) {
+          shootingStar.remove()
+        }
+      }, 3000)
+    }
+  }, 8000)
+}
+
+// Animations
+function initializeAnimations() {
+  // Parallax effect for cosmic elements
+  window.addEventListener("scroll", () => {
+    const scrolled = window.pageYOffset
+    const cosmicOrbs = document.querySelectorAll(".cosmic-orb")
+
+    cosmicOrbs.forEach((orb, index) => {
+      const speed = 0.3 + index * 0.1
+      orb.style.transform += ` translateY(${scrolled * speed}px)`
+    })
+  })
+
+  // Mouse movement effects
+  document.addEventListener("mousemove", (e) => {
+    const cursor = { x: e.clientX, y: e.clientY }
+
+    // Cosmic text glow effect
+    const cosmicElements = document.querySelectorAll(".cosmic-text, .brand-text")
+
+    cosmicElements.forEach((element) => {
+      const rect = element.getBoundingClientRect()
+      const elementCenter = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      }
+
+      const distance = Math.sqrt(Math.pow(cursor.x - elementCenter.x, 2) + Math.pow(cursor.y - elementCenter.y, 2))
+
+      const maxDistance = 300
+      const intensity = Math.max(0, 1 - distance / maxDistance)
+
+      if (element.classList.contains("cosmic-text")) {
+        element.style.filter = `brightness(${1 + intensity * 0.5}) saturate(${1 + intensity * 0.8})`
       }
     })
-  }
 
-  // Smooth scroll for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault()
-      const target = document.querySelector(this.getAttribute("href"))
-      if (target) {
-        const offsetTop = target.offsetTop - 80
-        window.scrollTo({
-          top: offsetTop,
-          behavior: "smooth",
-        })
-      }
+    // Parallax stars
+    const stars = document.querySelectorAll(".star")
+    stars.forEach((star, index) => {
+      const speed = ((index % 3) + 1) * 0.01
+      const x = (cursor.x - window.innerWidth / 2) * speed
+      const y = (cursor.y - window.innerHeight / 2) * speed
+      star.style.transform = `translate(${x}px, ${y}px)`
     })
   })
 
@@ -98,19 +128,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("animate-fade-in-up")
+        entry.target.style.opacity = "1"
+        entry.target.style.transform = "translateY(0)"
       }
     })
   }, observerOptions)
 
   // Observe elements for animation
-  const animateElements = document.querySelectorAll(".service-card, .process-step, .portfolio-item, .contact-feature")
-
+  const animateElements = document.querySelectorAll(".hero-content > *, .form-container")
   animateElements.forEach((el) => {
+    el.style.opacity = "0"
+    el.style.transform = "translateY(30px)"
+    el.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
     observer.observe(el)
   })
+}
 
-  // Form handling
+// Form Handling
+function setupFormHandling() {
   if (leadForm) {
     leadForm.addEventListener("submit", async (e) => {
       e.preventDefault()
@@ -119,54 +154,46 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = new FormData(leadForm)
       const data = Object.fromEntries(formData)
 
-      // Validate required fields
-      const requiredFields = ["nome", "email", "telefone", "empresa", "segmento"]
-      const missingFields = requiredFields.filter((field) => !data[field] || data[field].trim() === "")
-
-      if (missingFields.length > 0) {
-        showNotification("Por favor, preencha todos os campos obrigatórios.", "error")
+      // Validate
+      if (!validateForm(data)) {
         return
       }
 
-      // Validate email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!emailRegex.test(data.email)) {
-        showNotification("Por favor, insira um e-mail válido.", "error")
-        return
-      }
+      // Show loading
+      setLoadingState(true)
 
-      // Show loading state
-      if (submitBtn) {
-        submitBtn.classList.add("loading")
-        submitBtn.disabled = true
-        const originalText = submitBtn.innerHTML
-        submitBtn.innerHTML = "<span>Enviando...</span>"
+      try {
+        // Simulate API call
+        await submitLead(data)
 
-        try {
-          // Simulate API call
-          await simulateFormSubmission(data)
+        // Success
+        showCosmicNotification("🚀 Dominação iniciada! Entraremos em contato em até 2 horas.", "success")
+        leadForm.reset()
 
-          // Success
-          showNotification("Solicitação enviada com sucesso! Entraremos em contato em até 2 horas.", "success")
-          leadForm.reset()
+        // Track conversion
+        trackConversion("cosmic_lead_submission", data)
 
-          // Track conversion
-          trackConversion("lead_form_submission", data)
-        } catch (error) {
-          console.error("Erro ao enviar formulário:", error)
-          showNotification("Erro ao enviar formulário. Tente novamente ou entre em contato pelo WhatsApp.", "error")
-        } finally {
-          // Reset button state
-          submitBtn.classList.remove("loading")
-          submitBtn.disabled = false
-          submitBtn.innerHTML = originalText
-        }
+        // Redirect to WhatsApp after 2 seconds
+        setTimeout(() => {
+          openWhatsApp(
+            `🚀 Olá! Acabei de solicitar dominação digital pelo site. Meu nome é ${data.nome} e preciso de ${data.projeto}. Vamos conquistar o universo juntos!`,
+          )
+        }, 2000)
+      } catch (error) {
+        console.error("Erro ao enviar formulário:", error)
+        showCosmicNotification(
+          "❌ Falha na transmissão cósmica. Tente novamente ou entre em contato pelo WhatsApp.",
+          "error",
+        )
+      } finally {
+        setLoadingState(false)
       }
     })
   }
+}
 
-  // Phone number formatting
-  const phoneInput = document.getElementById("telefone")
+// Phone Formatting
+function setupPhoneFormatting() {
   if (phoneInput) {
     phoneInput.addEventListener("input", (e) => {
       let value = e.target.value.replace(/\D/g, "")
@@ -184,154 +211,228 @@ document.addEventListener("DOMContentLoaded", () => {
       e.target.value = value
     })
   }
-})
+}
 
-// Utility functions
-function scrollToForm() {
-  const contactSection = document.getElementById("contact")
-  if (contactSection) {
-    contactSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    })
+// Form Validation
+function validateForm(data) {
+  const requiredFields = ["nome", "email", "telefone", "empresa", "projeto"]
+  const missingFields = requiredFields.filter((field) => !data[field] || data[field].trim() === "")
+
+  if (missingFields.length > 0) {
+    showCosmicNotification("⚠️ Complete todos os campos para iniciar a dominação.", "error")
+    return false
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(data.email)) {
+    showCosmicNotification("⚠️ Insira um e-mail válido para estabelecer comunicação.", "error")
+    return false
+  }
+
+  // Phone validation
+  const phoneRegex = /^(\d{2})\s(\d{4,5})-(\d{4})$/
+  if (!phoneRegex.test(data.telefone)) {
+    showCosmicNotification("⚠️ Formato de telefone inválido para transmissão.", "error")
+    return false
+  }
+
+  return true
+}
+
+// Loading State
+function setLoadingState(loading) {
+  if (submitBtn) {
+    submitBtn.classList.toggle("loading", loading)
+    submitBtn.disabled = loading
+
+    const btnText = submitBtn.querySelector(".btn-text")
+    if (loading) {
+      btnText.textContent = "Transmitindo..."
+    } else {
+      btnText.textContent = "Iniciar Dominação"
+    }
   }
 }
 
-function openWhatsApp() {
-  const phone = "5511972822020"
-  const message =
-    "Olá! Vi o site da Morientes e gostaria de saber mais sobre os serviços de desenvolvimento web premium."
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
-  window.open(url, "_blank")
-}
-
-async function simulateFormSubmission(data) {
+// API Simulation
+async function submitLead(data) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Simulate 95% success rate
       if (Math.random() > 0.05) {
         resolve(data)
       } else {
-        reject(new Error("Simulation error"))
+        reject(new Error("Cosmic interference detected"))
       }
-    }, 2000)
+    }, 2500)
   })
 }
 
-function showNotification(message, type = "info") {
+// Cosmic Notifications
+function showCosmicNotification(message, type = "info") {
   // Remove existing notifications
-  const existingNotifications = document.querySelectorAll(".notification")
+  const existingNotifications = document.querySelectorAll(".cosmic-notification")
   existingNotifications.forEach((notification) => notification.remove())
 
   // Create notification
   const notification = document.createElement("div")
-  notification.className = `notification notification-${type}`
+  notification.className = `cosmic-notification cosmic-notification-${type}`
+
+  const colors = {
+    success: "linear-gradient(135deg, #10B981, #059669)",
+    error: "linear-gradient(135deg, #EF4444, #DC2626)",
+    info: "linear-gradient(135deg, #3B82F6, #2563EB)",
+  }
+
   notification.innerHTML = `
-    <div class="notification-content">
-      <span class="notification-icon">
-        ${type === "success" ? "✅" : type === "error" ? "❌" : "ℹ️"}
-      </span>
-      <span class="notification-message">${message}</span>
-      <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+    <div class="cosmic-notification-content">
+      <div class="cosmic-notification-glow"></div>
+      <span class="cosmic-notification-message">${message}</span>
+      <button class="cosmic-notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
     </div>
   `
 
-  // Add styles
+  // Styles
   notification.style.cssText = `
     position: fixed;
-    top: 100px;
+    top: 2rem;
     right: 2rem;
     z-index: 10000;
     max-width: 400px;
-    background: ${type === "success" ? "#10B981" : type === "error" ? "#EF4444" : "#3B82F6"};
+    background: ${colors[type]};
     color: white;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    animation: slideInRight 0.3s ease-out;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: cosmicSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
   `
 
-  const style = document.createElement("style")
-  style.textContent = `
-    @keyframes slideInRight {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
+  // Add styles for animation
+  if (!document.getElementById("cosmic-notification-styles")) {
+    const style = document.createElement("style")
+    style.id = "cosmic-notification-styles"
+    style.textContent = `
+      @keyframes cosmicSlideIn {
+        from {
+          transform: translateX(100%) scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0) scale(1);
+          opacity: 1;
+        }
       }
-      to {
-        transform: translateX(0);
+      .cosmic-notification-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        position: relative;
+      }
+      .cosmic-notification-glow {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+        border-radius: 20px;
+        animation: notificationGlow 2s ease-in-out infinite;
+        z-index: -1;
+      }
+      @keyframes notificationGlow {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.05); }
+      }
+      .cosmic-notification-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-left: auto;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .cosmic-notification-close:hover {
         opacity: 1;
+        background: rgba(255, 255, 255, 0.2);
       }
-    }
-    .notification-content {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .notification-close {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.25rem;
-      cursor: pointer;
-      margin-left: auto;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-    .notification-close:hover {
-      opacity: 1;
-    }
-  `
+      .cosmic-notification-message {
+        flex: 1;
+        font-size: 0.875rem;
+        line-height: 1.4;
+      }
+    `
+    document.head.appendChild(style)
+  }
 
-  document.head.appendChild(style)
   document.body.appendChild(notification)
 
-  // Auto remove after 5 seconds
+  // Auto remove after 6 seconds
   setTimeout(() => {
     if (notification.parentElement) {
-      notification.remove()
+      notification.style.animation = "cosmicSlideIn 0.3s reverse"
+      setTimeout(() => notification.remove(), 300)
     }
-  }, 5000)
+  }, 6000)
 }
 
+// WhatsApp Integration
+function openWhatsApp(customMessage = null) {
+  const phone = "5511972822020"
+  const message =
+    customMessage || "🚀 Olá! Vi o site da Morientes e quero dominar meu mercado com um site premium que converte!"
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+  window.open(url, "_blank")
+}
+
+// Analytics Tracking
 function trackConversion(eventName, data) {
   // Google Analytics 4
   const gtag = window.gtag // Declare gtag variable
-  if (gtag) {
+  if (typeof gtag !== "undefined") {
     gtag("event", eventName, {
-      custom_parameter: data.segmento,
-      value: 2500,
+      custom_parameter: data.projeto,
+      value: 5000,
       currency: "BRL",
     })
   }
 
   // Facebook Pixel
   const fbq = window.fbq // Declare fbq variable
-  if (fbq) {
+  if (typeof fbq !== "undefined") {
     fbq("track", "Lead", {
-      content_category: data.segmento,
-      value: 2500,
+      content_category: data.projeto,
+      value: 5000,
       currency: "BRL",
     })
   }
 
   // Console log for debugging
-  console.log("🎯 Conversion tracked:", eventName, data)
+  console.log("🎯 Cosmic conversion tracked:", eventName, data)
 }
 
-// Performance monitoring
+// Performance Monitoring
 window.addEventListener("load", () => {
   const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart
-  console.log(`⚡ Page loaded in ${loadTime}ms`)
+  console.log(`⚡ Universe loaded in ${loadTime}ms`)
 
   // Track performance
   const gtag = window.gtag // Declare gtag variable
-  if (gtag) {
-    gtag("event", "page_load_time", {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "cosmic_page_load_time", {
       value: Math.round(loadTime / 1000),
     })
   }
 })
-
-console.log("🚀 Morientes Premium Landing Page loaded successfully! 🚀")
