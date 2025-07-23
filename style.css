@@ -433,12 +433,13 @@ body {
 
 /* Seção CTA Separada - Centralizada Horizontal e Verticalmente */
 .cta-section {
-  min-height: 50vh; /* Altura mínima para centralização vertical */
+  min-height: auto; /* Remover altura mínima */
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 4rem 0;
+  padding: 0 0 2rem 0; /* Adicionar padding-bottom para criar espaçamento visual */
+  margin-top: -2rem; /* Aproximar da hero */
   background: transparent;
 }
 
@@ -480,8 +481,9 @@ body {
 /* Responsive para CTA Section */
 @media (max-width: 768px) {
   .cta-section {
-    min-height: 40vh;
-    padding: 3rem 0;
+    min-height: auto; /* Remover altura mínima */
+    padding: 1rem 0; /* Manter um pouco de espaço no mobile */
+    margin-top: 0; /* Resetar margin no mobile */
   }
 
   .cta-content {
@@ -495,8 +497,9 @@ body {
 
 @media (max-width: 480px) {
   .cta-section {
-    min-height: 35vh;
-    padding: 2rem 0;
+    min-height: auto; /* Remover altura mínima */
+    padding: 1rem 0; /* Manter espaço no mobile */
+    margin-top: 0; /* Resetar margin no mobile */
   }
 
   .cta-content {
@@ -865,7 +868,7 @@ body {
   background: transparent; /* Remover background próprio */
   border-top: 1px solid rgba(59, 130, 246, 0.2);
   padding: 3rem 0 2rem;
-  margin-top: 0;
+  margin-top: 0; /* Remover margin negativo */
   position: relative;
   z-index: 1;
 }
@@ -1146,7 +1149,7 @@ body {
   }
 
   .hero-title {
-    font-size: 2rem;
+    font-size: 2.rem;
   }
 
   .hero-subtitle {
