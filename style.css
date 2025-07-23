@@ -431,26 +431,81 @@ body {
   filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.8));
 }
 
-.hero-cta-text {
-  margin-top: 2rem;
-  padding: 1.5rem;
+/* Seção CTA Separada - Centralizada Horizontal e Verticalmente */
+.cta-section {
+  min-height: 50vh; /* Altura mínima para centralização vertical */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 4rem 0;
+  background: transparent;
+}
+
+.cta-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-content {
   background: rgba(99, 102, 241, 0.1);
   border: 1px solid rgba(99, 102, 241, 0.3);
   border-radius: var(--border-radius);
   backdrop-filter: blur(10px);
+  padding: 3rem 4rem;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
 }
 
-.hero-cta-text p {
+.cta-content p {
   color: var(--gray-light);
-  font-size: 1.125rem;
-  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
   margin: 0;
+  line-height: 1.4;
 }
 
 .highlight {
   color: var(--cosmic-cyan);
   font-weight: 600;
   text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+}
+
+/* Responsive para CTA Section */
+@media (max-width: 768px) {
+  .cta-section {
+    min-height: 40vh;
+    padding: 3rem 0;
+  }
+
+  .cta-content {
+    padding: 2.5rem 2rem;
+  }
+
+  .cta-content p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-section {
+    min-height: 35vh;
+    padding: 2rem 0;
+  }
+
+  .cta-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .cta-content p {
+    font-size: 1.125rem;
+  }
 }
 
 /* Right Form */
@@ -822,8 +877,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9); /* 90% de transparência */
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.4); /* Diminuir para 40% de transparência */
+  backdrop-filter: blur(20px); /* Aumentar blur */
   z-index: -1;
 }
 
@@ -977,6 +1032,16 @@ body {
   }
 
   .footer-social {
+    font-size: 1.5rem;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .footer-social {
     gap: 1rem;
   }
 }
@@ -1062,6 +1127,17 @@ body {
     right: 1rem;
     font-size: 1.5rem;
   }
+
+  .hero-cta-section {
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+  }
+
+  .hero-cta-text {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1087,6 +1163,15 @@ body {
 
   .brand-text {
     font-size: 2rem;
+  }
+
+  .hero-cta-section {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero-cta-text {
+    padding: 1.5rem 1rem;
   }
 }
 
