@@ -18,13 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Create Enhanced Star Field
 function createStarField() {
-  const numberOfStars = 300 // Aumentado para criar mais estrelas
+  const numberOfStars = 300
 
   for (let i = 0; i < numberOfStars; i++) {
     const star = document.createElement("div")
     star.className = "star"
 
-    // Distribuição mais realista de tamanhos
     const size = Math.random()
     if (size < 0.7) {
       star.classList.add("small")
@@ -34,31 +33,24 @@ function createStarField() {
       star.classList.add("large")
     }
 
-    // Mais estrelas coloridas para efeito espacial
     if (Math.random() < 0.4) {
       star.classList.add("colored")
     }
 
-    // Posicionamento aleatório mais natural
     star.style.left = Math.random() * 100 + "%"
     star.style.top = Math.random() * 100 + "%"
-
-    // Variação nas animações
     star.style.animationDelay = Math.random() * 4 + "s"
     star.style.animationDuration = 2 + Math.random() * 4 + "s"
 
     starsContainer.appendChild(star)
   }
 
-  // Adiciona algumas estrelas cadentes
   createShootingStars()
 }
 
-// Nova função para estrelas cadentes
 function createShootingStars() {
   setInterval(() => {
     if (Math.random() < 0.3) {
-      // 30% de chance a cada intervalo
       const shootingStar = document.createElement("div")
       shootingStar.className = "shooting-star"
       shootingStar.style.left = Math.random() * 100 + "%"
@@ -66,7 +58,6 @@ function createShootingStars() {
 
       starsContainer.appendChild(shootingStar)
 
-      // Remove após animação
       setTimeout(() => {
         if (shootingStar.parentElement) {
           shootingStar.remove()
@@ -78,7 +69,6 @@ function createShootingStars() {
 
 // Animations
 function initializeAnimations() {
-  // Parallax effect for cosmic elements
   window.addEventListener("scroll", () => {
     const scrolled = window.pageYOffset
     const cosmicOrbs = document.querySelectorAll(".cosmic-orb")
@@ -89,11 +79,9 @@ function initializeAnimations() {
     })
   })
 
-  // Mouse movement effects
   document.addEventListener("mousemove", (e) => {
     const cursor = { x: e.clientX, y: e.clientY }
 
-    // Cosmic text glow effect
     const cosmicElements = document.querySelectorAll(".cosmic-text, .brand-text")
 
     cosmicElements.forEach((element) => {
@@ -113,7 +101,6 @@ function initializeAnimations() {
       }
     })
 
-    // Parallax stars
     const stars = document.querySelectorAll(".star")
     stars.forEach((star, index) => {
       const speed = ((index % 3) + 1) * 0.01
@@ -123,7 +110,6 @@ function initializeAnimations() {
     })
   })
 
-  // Intersection Observer for animations
   const observerOptions = {
     threshold: 0.1,
     rootMargin: "0px 0px -50px 0px",
@@ -138,7 +124,6 @@ function initializeAnimations() {
     })
   }, observerOptions)
 
-  // Observe elements for animation
   const animateElements = document.querySelectorAll(".hero-content > *, .form-container")
   animateElements.forEach((el) => {
     el.style.opacity = "0"
@@ -154,30 +139,23 @@ function setupFormHandling() {
     leadForm.addEventListener("submit", async (e) => {
       e.preventDefault()
 
-      // Get form data
       const formData = new FormData(leadForm)
       const data = Object.fromEntries(formData)
 
-      // Validate
       if (!validateForm(data)) {
         return
       }
 
-      // Show loading
       setLoadingState(true)
 
       try {
-        // Enviar para Google Apps Script
         await submitLead(data)
 
-        // Success
         showCosmicNotification("🚀 Dominação iniciada! Entraremos em contato em até 2 horas.", "success")
         leadForm.reset()
 
-        // Track conversion
         trackConversion("cosmic_lead_submission", data)
 
-        // Redirect to WhatsApp after 2 seconds
         setTimeout(() => {
           openWhatsApp(
             `🚀 Olá! Acabei de solicitar dominação digital pelo site. Meu nome é ${data.nome} e preciso de ${data.projeto}. Vamos conquistar o universo juntos!`,
@@ -217,7 +195,7 @@ function setupPhoneFormatting() {
   }
 }
 
-// Form Validation
+// Form Validation - REGEX DO TELEFONE CORRIGIDA
 function validateForm(data) {
   const requiredFields = ["nome", "email", "telefone", "empresa", "projeto"]
   const missingFields = requiredFields.filter((field) => !data[field] || data[field].trim() === "")
@@ -234,10 +212,13 @@ function validateForm(data) {
     return false
   }
 
-  // Phone validation
+  // Phone validation - REGEX CORRIGIDA
+  // Aceita formatos: (11) 99999-9999 ou (11) 9999-9999
   const phoneRegex = /^$$\d{2}$$\s\d{4,5}-\d{4}$/
   if (!phoneRegex.test(data.telefone)) {
-    showCosmicNotification("⚠️ Formato de telefone inválido para transmissão.", "error")
+    console.log("Telefone digitado:", data.telefone)
+    console.log("Regex testada:", phoneRegex)
+    showCosmicNotification("⚠️ Formato de telefone inválido. Use: (11) 99999-9999", "error")
     return false
   }
 
@@ -264,25 +245,21 @@ async function submitLead(data) {
   try {
     console.log("🚀 Enviando dados para Google Apps Script:", data)
 
-    // Primeira tentativa: POST com JSON
     const response = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      mode: "no-cors", // Necessário para Google Apps Script
+      mode: "no-cors",
     })
 
     console.log("✅ Dados enviados com sucesso para Google Apps Script!")
-
-    // Como usamos no-cors, assumimos sucesso se não houve erro
     return { success: true }
   } catch (error) {
     console.error("❌ Erro na primeira tentativa, tentando método alternativo:", error)
 
     try {
-      // Segunda tentativa: POST com FormData
       const formData = new FormData()
       Object.keys(data).forEach((key) => {
         formData.append(key, data[key])
@@ -305,11 +282,9 @@ async function submitLead(data) {
 
 // Cosmic Notifications
 function showCosmicNotification(message, type = "info") {
-  // Remove existing notifications
   const existingNotifications = document.querySelectorAll(".cosmic-notification")
   existingNotifications.forEach((notification) => notification.remove())
 
-  // Create notification
   const notification = document.createElement("div")
   notification.className = `cosmic-notification cosmic-notification-${type}`
 
@@ -327,7 +302,6 @@ function showCosmicNotification(message, type = "info") {
     </div>
   `
 
-  // Styles
   notification.style.cssText = `
     position: fixed;
     top: 2rem;
@@ -345,7 +319,6 @@ function showCosmicNotification(message, type = "info") {
     backdrop-filter: blur(20px);
   `
 
-  // Add styles for animation
   if (!document.getElementById("cosmic-notification-styles")) {
     const style = document.createElement("style")
     style.id = "cosmic-notification-styles"
@@ -413,7 +386,6 @@ function showCosmicNotification(message, type = "info") {
 
   document.body.appendChild(notification)
 
-  // Auto remove after 6 seconds
   setTimeout(() => {
     if (notification.parentElement) {
       notification.style.animation = "cosmicSlideIn 0.3s reverse"
@@ -426,14 +398,13 @@ function showCosmicNotification(message, type = "info") {
 function openWhatsApp(customMessage = null) {
   const phone = "5511959623000" // Número correto
   const message =
-    customMessage || "🚀 Olá! Vi o site da Morientes e quero dominar meu mercado com um site premium que converte!"
+    customMessage || "Olá! Vi o site da Morientes e quero dominar meu mercado com um site premium que converte!"
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
   window.open(url, "_blank")
 }
 
 // Analytics Tracking
 function trackConversion(eventName, data) {
-  // Google Analytics 4
   const gtag = window.gtag
   if (typeof gtag !== "undefined") {
     gtag("event", eventName, {
@@ -443,7 +414,6 @@ function trackConversion(eventName, data) {
     })
   }
 
-  // Facebook Pixel
   const fbq = window.fbq
   if (typeof fbq !== "undefined") {
     fbq("track", "Lead", {
@@ -453,7 +423,6 @@ function trackConversion(eventName, data) {
     })
   }
 
-  // Console log for debugging
   console.log("🎯 Cosmic conversion tracked:", eventName, data)
 }
 
@@ -462,7 +431,6 @@ window.addEventListener("load", () => {
   const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart
   console.log(`⚡ Universe loaded in ${loadTime}ms`)
 
-  // Track performance
   const gtag = window.gtag
   if (typeof gtag !== "undefined") {
     gtag("event", "cosmic_page_load_time", {
@@ -471,7 +439,7 @@ window.addEventListener("load", () => {
   }
 })
 
-// Função de teste para debug (pode ser removida em produção)
+// Função de teste para debug
 function testarFormulario() {
   const dadosTeste = {
     nome: "Teste Morientes",
@@ -486,5 +454,3 @@ function testarFormulario() {
     .then(() => console.log("✅ Teste concluído com sucesso!"))
     .catch((error) => console.error("❌ Erro no teste:", error))
 }
-
-// Para testar no console do navegador, digite: testarFormulario()
