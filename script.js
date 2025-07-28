@@ -1,4 +1,4 @@
-// ===== MORIENTES DIGITAL SUPREMACY - FORM HANDLER =====
+// ===== MORIENTES DIGITAL SUPREMACY - FORM HANDLER FINAL =====
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize all modules
   StarField.init()
@@ -306,9 +306,9 @@ const Forms = {
       submitBtn.disabled = true
       submitBtn.classList.add("loading")
 
-      // URL do Google Apps Script - SUBSTITUA PELA SUA URL
+      // URL ATUALIZADA do Google Apps Script
       const SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbxkI5Ja7fPNqdJJcdlCvOlVxcus4ua6F6TLhEgAaJY8EYrORuQzSRKX8pEgxEW-6ilI/exec"
+        "https://script.google.com/macros/s/AKfycbxJTL4n94-i6wXjRnPz2Z4C32pJdzXY5rHua_QQl_L4VKMQXcQhIxpZzEA4R_0m8luKhg/exec"
 
       // Preparar dados para envio
       const formData = {
@@ -320,6 +320,7 @@ const Forms = {
       }
 
       console.log("🚀 Enviando dados para Google Apps Script:", formData)
+      console.log("🎯 URL do Apps Script:", SCRIPT_URL)
 
       // Enviar para Google Apps Script
       const response = await fetch(SCRIPT_URL, {
