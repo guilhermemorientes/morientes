@@ -4,6 +4,10 @@ const submitBtn = document.querySelector(".cosmic-submit")
 const phoneInput = document.getElementById("telefone")
 const starsContainer = document.getElementById("starsContainer")
 
+// URL do seu Google Apps Script - ATUALIZADA
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwbH0MBxLfmwMS38w1SNWBolGdphRjzjI5ChJ-5lwmpeYri32Kx1imc_vfQUwR4b4Qc/exec"
+
 // Initialize Universe
 document.addEventListener("DOMContentLoaded", () => {
   createStarField()
@@ -144,7 +148,7 @@ function initializeAnimations() {
   })
 }
 
-// Form Handling
+// Form Handling - INTEGRAÇÃO REAL COM GOOGLE APPS SCRIPT
 function setupFormHandling() {
   if (leadForm) {
     leadForm.addEventListener("submit", async (e) => {
@@ -163,7 +167,7 @@ function setupFormHandling() {
       setLoadingState(true)
 
       try {
-        // Simulate API call
+        // Enviar para Google Apps Script
         await submitLead(data)
 
         // Success
@@ -231,7 +235,7 @@ function validateForm(data) {
   }
 
   // Phone validation
-  const phoneRegex = /^(\d{2})\s(\d{4,5})-(\d{4})$/
+  const phoneRegex = /^$$\d{2}$$\s\d{4,5}-\d{4}$/
   if (!phoneRegex.test(data.telefone)) {
     showCosmicNotification("⚠️ Formato de telefone inválido para transmissão.", "error")
     return false
@@ -255,18 +259,48 @@ function setLoadingState(loading) {
   }
 }
 
-// API Simulation
+// FUNÇÃO PRINCIPAL - Integração Real com Google Apps Script
 async function submitLead(data) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Simulate 95% success rate
-      if (Math.random() > 0.05) {
-        resolve(data)
-      } else {
-        reject(new Error("Cosmic interference detected"))
-      }
-    }, 2500)
-  })
+  try {
+    console.log("🚀 Enviando dados para Google Apps Script:", data)
+
+    // Primeira tentativa: POST com JSON
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      mode: "no-cors", // Necessário para Google Apps Script
+    })
+
+    console.log("✅ Dados enviados com sucesso para Google Apps Script!")
+
+    // Como usamos no-cors, assumimos sucesso se não houve erro
+    return { success: true }
+  } catch (error) {
+    console.error("❌ Erro na primeira tentativa, tentando método alternativo:", error)
+
+    try {
+      // Segunda tentativa: POST com FormData
+      const formData = new FormData()
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key])
+      })
+
+      const response2 = await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      })
+
+      console.log("✅ Dados enviados com sucesso (método alternativo)!")
+      return { success: true }
+    } catch (error2) {
+      console.error("❌ Erro em ambas as tentativas:", error2)
+      throw new Error("Falha na comunicação com o servidor")
+    }
+  }
 }
 
 // Cosmic Notifications
@@ -390,7 +424,7 @@ function showCosmicNotification(message, type = "info") {
 
 // WhatsApp Integration
 function openWhatsApp(customMessage = null) {
-  const phone = "5511972822020"
+  const phone = "5511959623000" // Número correto
   const message =
     customMessage || "🚀 Olá! Vi o site da Morientes e quero dominar meu mercado com um site premium que converte!"
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
@@ -400,7 +434,7 @@ function openWhatsApp(customMessage = null) {
 // Analytics Tracking
 function trackConversion(eventName, data) {
   // Google Analytics 4
-  const gtag = window.gtag // Declare gtag variable
+  const gtag = window.gtag
   if (typeof gtag !== "undefined") {
     gtag("event", eventName, {
       custom_parameter: data.projeto,
@@ -410,7 +444,7 @@ function trackConversion(eventName, data) {
   }
 
   // Facebook Pixel
-  const fbq = window.fbq // Declare fbq variable
+  const fbq = window.fbq
   if (typeof fbq !== "undefined") {
     fbq("track", "Lead", {
       content_category: data.projeto,
@@ -429,10 +463,28 @@ window.addEventListener("load", () => {
   console.log(`⚡ Universe loaded in ${loadTime}ms`)
 
   // Track performance
-  const gtag = window.gtag // Declare gtag variable
+  const gtag = window.gtag
   if (typeof gtag !== "undefined") {
     gtag("event", "cosmic_page_load_time", {
       value: Math.round(loadTime / 1000),
     })
   }
 })
+
+// Função de teste para debug (pode ser removida em produção)
+function testarFormulario() {
+  const dadosTeste = {
+    nome: "Teste Morientes",
+    email: "teste@morientes.com.br",
+    telefone: "(11) 95962-3000",
+    empresa: "Morientes Test",
+    projeto: "site-novo",
+  }
+
+  console.log("🧪 Testando envio de dados...")
+  submitLead(dadosTeste)
+    .then(() => console.log("✅ Teste concluído com sucesso!"))
+    .catch((error) => console.error("❌ Erro no teste:", error))
+}
+
+// Para testar no console do navegador, digite: testarFormulario()
