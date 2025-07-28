@@ -214,7 +214,7 @@ function validateForm(data) {
 
   // Phone validation - REGEX CORRIGIDA
   // Aceita formatos: (11) 99999-9999 ou (11) 9999-9999
-  const phoneRegex = /^$$\d{2}$$\s\d{4,5}-\d{4}$/
+  const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/
   if (!phoneRegex.test(data.telefone)) {
     console.log("Telefone digitado:", data.telefone)
     console.log("Regex testada:", phoneRegex)
