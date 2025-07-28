@@ -4,7 +4,7 @@ const submitBtn = document.querySelector(".cosmic-submit")
 const phoneInput = document.getElementById("telefone")
 const starsContainer = document.getElementById("starsContainer")
 
-// ✅ NOVA URL do Google Apps Script
+// URL do seu Google Apps Script - ATUALIZADA
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxkI5Ja7fPNqdJJcdlCvOlVxcus4ua6F6TLhEgAaJY8EYrORuQzSRKX8pEgxEW-6ilI/exec"
 
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Create Enhanced Star Field
 function createStarField() {
   const numberOfStars = 300
+
   for (let i = 0; i < numberOfStars; i++) {
     const star = document.createElement("div")
     star.className = "star"
@@ -54,22 +55,90 @@ function createShootingStars() {
       shootingStar.className = "shooting-star"
       shootingStar.style.left = Math.random() * 100 + "%"
       shootingStar.style.top = Math.random() * 50 + "%"
+
       starsContainer.appendChild(shootingStar)
+
       setTimeout(() => {
-        if (shootingStar.parentElement) shootingStar.remove()
+        if (shootingStar.parentElement) {
+          shootingStar.remove()
+        }
       }, 3000)
     }
   }, 8000)
 }
 
-// Animations (mantido igual)
-// ...
+// Animations
+function initializeAnimations() {
+  window.addEventListener("scroll", () => {
+    const scrolled = window.pageYOffset
+    const cosmicOrbs = document.querySelectorAll(".cosmic-orb")
+
+    cosmicOrbs.forEach((orb, index) => {
+      const speed = 0.3 + index * 0.1
+      orb.style.transform += ` translateY(${scrolled * speed}px)`
+    })
+  })
+
+  document.addEventListener("mousemove", (e) => {
+    const cursor = { x: e.clientX, y: e.clientY }
+
+    const cosmicElements = document.querySelectorAll(".cosmic-text, .brand-text")
+
+    cosmicElements.forEach((element) => {
+      const rect = element.getBoundingClientRect()
+      const elementCenter = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      }
+
+      const distance = Math.sqrt(Math.pow(cursor.x - elementCenter.x, 2) + Math.pow(cursor.y - elementCenter.y, 2))
+
+      const maxDistance = 300
+      const intensity = Math.max(0, 1 - distance / maxDistance)
+
+      if (element.classList.contains("cosmic-text")) {
+        element.style.filter = `brightness(${1 + intensity * 0.5}) saturate(${1 + intensity * 0.8})`
+      }
+    })
+
+    const stars = document.querySelectorAll(".star")
+    stars.forEach((star, index) => {
+      const speed = ((index % 3) + 1) * 0.01
+      const x = (cursor.x - window.innerWidth / 2) * speed
+      const y = (cursor.y - window.innerHeight / 2) * speed
+      star.style.transform = `translate(${x}px, ${y}px)`
+    })
+  })
+
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1"
+        entry.target.style.transform = "translateY(0)"
+      }
+    })
+  }, observerOptions)
+
+  const animateElements = document.querySelectorAll(".hero-content > *, .form-container")
+  animateElements.forEach((el) => {
+    el.style.opacity = "0"
+    el.style.transform = "translateY(30px)"
+    el.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+    observer.observe(el)
+  })
+}
 
 // Form Handling
 function setupFormHandling() {
   if (leadForm) {
     leadForm.addEventListener("submit", async (e) => {
       e.preventDefault()
+
       const formData = new FormData(leadForm)
       const data = Object.fromEntries(formData)
 
@@ -100,26 +169,33 @@ function setupFormHandling() {
   }
 }
 
-// Máscara de telefone
+// Phone Formatting
 function setupPhoneFormatting() {
   if (phoneInput) {
     phoneInput.addEventListener("input", (e) => {
       let value = e.target.value.replace(/\D/g, "")
+
       if (value.length <= 11) {
-        if (value.length <= 2) value = value.replace(/(\d{0,2})/, "($1")
-        else if (value.length <= 7) value = value.replace(/(\d{2})(\d{0,5})/, "($1) $2")
-        else value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3")
+        if (value.length <= 2) {
+          value = value.replace(/(\d{0,2})/, "($1")
+        } else if (value.length <= 7) {
+          value = value.replace(/(\d{2})(\d{0,5})/, "($1) $2")
+        } else {
+          value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3")
+        }
       }
+
       e.target.value = value
     })
   }
 }
 
-// Validação
+// Form Validation
 function validateForm(data) {
-  const required = ["nome", "email", "telefone", "empresa", "projeto"]
-  const missing = required.filter((f) => !data[f] || data[f].trim() === "")
-  if (missing.length > 0) {
+  const requiredFields = ["nome", "email", "telefone", "empresa", "projeto"]
+  const missingFields = requiredFields.filter((field) => !data[field] || data[field].trim() === "")
+
+  if (missingFields.length > 0) {
     showCosmicNotification("⚠️ Complete todos os campos para iniciar a dominação.", "error")
     return false
   }
@@ -132,6 +208,8 @@ function validateForm(data) {
 
   const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/
   if (!phoneRegex.test(data.telefone)) {
+    console.log("Telefone digitado:", data.telefone)
+    console.log("Regex testada:", phoneRegex)
     showCosmicNotification("⚠️ Formato de telefone inválido. Use: (11) 99999-9999", "error")
     return false
   }
@@ -139,16 +217,31 @@ function validateForm(data) {
   return true
 }
 
-// Envio ao Apps Script
+// Loading State
+function setLoadingState(loading) {
+  if (submitBtn) {
+    submitBtn.classList.toggle("loading", loading)
+    submitBtn.disabled = loading
+
+    const btnText = submitBtn.querySelector(".btn-text")
+    btnText.textContent = loading ? "Transmitindo..." : "Iniciar Dominação"
+  }
+}
+
+// Submit Lead
 async function submitLead(data) {
   try {
     console.log("🚀 Enviando dados para Google Apps Script:", data)
+
     const response = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
       mode: "no-cors",
     })
+
     console.log("✅ Dados enviados com sucesso para Google Apps Script!")
     return { success: true }
   } catch (error) {
@@ -157,14 +250,13 @@ async function submitLead(data) {
   }
 }
 
-// Cosmic Notifications
+// Cosmic Notification
 function showCosmicNotification(message, type = "info") {
   const existingNotifications = document.querySelectorAll(".cosmic-notification")
-  existingNotifications.forEach((notification) => notification.remove())
+  existingNotifications.forEach((n) => n.remove())
 
   const notification = document.createElement("div")
   notification.className = `cosmic-notification cosmic-notification-${type}`
-
   const colors = {
     success: "linear-gradient(135deg, #10B981, #059669)",
     error: "linear-gradient(135deg, #EF4444, #DC2626)",
@@ -190,76 +282,11 @@ function showCosmicNotification(message, type = "info") {
     padding: 1.5rem;
     border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    animation: cosmicSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: cosmicSlideIn 0.5s ease;
     font-weight: 500;
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
   `
-
-  if (!document.getElementById("cosmic-notification-styles")) {
-    const style = document.createElement("style")
-    style.id = "cosmic-notification-styles"
-    style.textContent = `
-      @keyframes cosmicSlideIn {
-        from {
-          transform: translateX(100%) scale(0.8);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0) scale(1);
-          opacity: 1;
-        }
-      }
-      .cosmic-notification-content {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        position: relative;
-      }
-      .cosmic-notification-glow {
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-        border-radius: 20px;
-        animation: notificationGlow 2s ease-in-out infinite;
-        z-index: -1;
-      }
-      @keyframes notificationGlow {
-        0%, 100% { opacity: 0.3; transform: scale(1); }
-        50% { opacity: 0.6; transform: scale(1.05); }
-      }
-      .cosmic-notification-close {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-        margin-left: auto;
-        opacity: 0.8;
-        transition: opacity 0.2s;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-      }
-      .cosmic-notification-close:hover {
-        opacity: 1;
-        background: rgba(255, 255, 255, 0.2);
-      }
-      .cosmic-notification-message {
-        flex: 1;
-        font-size: 0.875rem;
-        line-height: 1.4;
-      }
-    `
-    document.head.appendChild(style)
-  }
 
   document.body.appendChild(notification)
 
@@ -273,14 +300,14 @@ function showCosmicNotification(message, type = "info") {
 
 // WhatsApp Integration
 function openWhatsApp(customMessage = null) {
-  const phone = "5511959623000" // Número correto
+  const phone = "5511959623000"
   const message =
     customMessage || "Olá! Vi o site da Morientes e quero dominar meu mercado com um site premium que converte!"
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
   window.open(url, "_blank")
 }
 
-// Analytics Tracking
+// Tracking
 function trackConversion(eventName, data) {
   const gtag = window.gtag
   if (typeof gtag !== "undefined") {
@@ -303,31 +330,8 @@ function trackConversion(eventName, data) {
   console.log("🎯 Cosmic conversion tracked:", eventName, data)
 }
 
-// Performance Monitoring
+// Performance Log
 window.addEventListener("load", () => {
   const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart
   console.log(`⚡ Universe loaded in ${loadTime}ms`)
-
-  const gtag = window.gtag
-  if (typeof gtag !== "undefined") {
-    gtag("event", "cosmic_page_load_time", {
-      value: Math.round(loadTime / 1000),
-    })
-  }
 })
-
-// Função de teste para debug
-function testarFormulario() {
-  const dadosTeste = {
-    nome: "Teste Morientes",
-    email: "teste@morientes.com.br",
-    telefone: "(11) 95962-3000",
-    empresa: "Morientes Test",
-    projeto: "site-novo",
-  }
-
-  console.log("🧪 Testando envio de dados...")
-  submitLead(dadosTeste)
-    .then(() => console.log("✅ Teste concluído com sucesso!"))
-    .catch((error) => console.error("❌ Erro no teste:", error))
-}
